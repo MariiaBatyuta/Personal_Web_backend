@@ -1,0 +1,130 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "version": "2.0.0",
+    "title": "Personal Web Backend",
+    "description": "API documentation for Personal Web Backend",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "servers": [{ "url": "https://personal-web-backend-1wxz.onrender.com" }],
+  "tags": [
+    {
+      "name": "Projects",
+      "description": "Get all projects endpoint"
+    },
+    {
+      "name": "Send Message",
+      "description": "Send Message endpoints"
+    }
+  ],
+  "paths": {
+    "/api/projects": {
+      "get": {
+        "tags": ["Projects"],
+        "summary": "Get all projects",
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Projects_Response"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/send-mail": {
+      "post": {
+        "tags": ["Send Message"],
+        "summary": "Send Message to my email",
+        "requestBody": {
+          "description": "Send Message object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Send_Message_Request"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": "Success message toast"
+          },
+          "400": {
+            "description": "Invalid help request",
+            "content": {}
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+        "Projects_Response": {
+            "type": "object",
+            "properties": {
+                "_id": {
+                    "type": "string",
+                    "example": "22222-333333_00000"
+                },
+                "project_type": {
+                    "type": "string",
+                    "example": "personal"
+                },
+                "project_name": {
+                    "type": "string",
+                    "example": "Project Name"
+                },
+                "description": {
+                    "type": "string",
+                    "example": "Project about something"
+                },
+                "web_url": {
+                    "type": "string",
+                    "example": "https://web-link.com"
+                },
+                "git_url": {
+                    "type": "string",
+                    "example": "https://github-link.com"
+                }, 
+                "preload_img": {
+                    "type": "string",
+                    "example": "https://test-photo.com"
+                }
+            }
+        },
+        "Send_Message_Request": {
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string",
+                    "format": "email"
+                },
+                "subject": {
+                    "type": "string",
+                    "example": "Email subject"
+                },
+                "text": {
+                    "type": "string",
+                    "example": "Some message text"
+                } 
+            }
+        }
+    }
+  }
+}
