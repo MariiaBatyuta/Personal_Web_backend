@@ -9,6 +9,7 @@ import path from "path";
 import swaggerUi from "swagger-ui-express";
 import { getProjects } from "./controllers/projectsControllers.js";
 import { sendMail } from "./controllers/sendMailControllers.js";
+import { warmUpServerControllers } from "./controllers/warmUpServerControllers.js";
 
 const app = express();
 
@@ -19,6 +20,7 @@ app.use(express.json());
 
 app.get("/api/projects", getProjects);
 app.post("/api/send-mail", sendMail);
+app.get("/api/warm-up", warmUpServerControllers);
 
 app.use("/api-doc", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 

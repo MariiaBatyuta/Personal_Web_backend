@@ -20,6 +20,10 @@
     {
       "name": "Send Message",
       "description": "Send Message endpoints"
+    },
+    {
+      "name": "Server Warm Up",
+      "description": "Server warmed up endpoints"
     }
   ],
   "paths": {
@@ -67,6 +71,21 @@
           },
           "400": {
             "description": "Invalid help request",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/api/warm-up": {
+      "get": {
+        "tags": ["Server Warm Up"],
+        "summary": "Server Warm Up",
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
             "content": {}
           }
         }
