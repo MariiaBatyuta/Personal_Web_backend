@@ -1,13 +1,11 @@
 import "dotenv/config";
-import "./db/db.js";
 
-import express, { json } from "express";
+import express from "express";
 import cors from "cors";
 
 import fs from "fs";
 import path from "path";
 import swaggerUi from "swagger-ui-express";
-import { getProjects } from "./controllers/projectsControllers.js";
 import { sendMail } from "./controllers/sendMailControllers.js";
 import { warmUpServerControllers } from "./controllers/warmUpServerControllers.js";
 
@@ -18,7 +16,6 @@ const swaggerDocument = JSON.parse(fs.readFileSync(path.resolve("./swagger.json"
 app.use(cors());
 app.use(express.json());
 
-app.get("/api/projects", getProjects);
 app.post("/api/send-mail", sendMail);
 app.get("/api/warm-up", warmUpServerControllers);
 

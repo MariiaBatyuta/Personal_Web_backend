@@ -14,10 +14,6 @@
   "servers": [{ "url": "https://personal-web-backend-1wxz.onrender.com" }],
   "tags": [
     {
-      "name": "Projects",
-      "description": "Get all projects endpoint"
-    },
-    {
       "name": "Send Message",
       "description": "Send Message endpoints"
     },
@@ -27,28 +23,6 @@
     }
   ],
   "paths": {
-    "/api/projects": {
-      "get": {
-        "tags": ["Projects"],
-        "summary": "Get all projects",
-        "responses": {
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Projects_Response"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad request (invalid request body)",
-            "content": {}
-          }
-        }
-      }
-    },
     "/api/send-mail": {
       "post": {
         "tags": ["Send Message"],
@@ -94,39 +68,6 @@
   },
   "components": {
     "schemas": {
-        "Projects_Response": {
-            "type": "object",
-            "properties": {
-                "_id": {
-                    "type": "string",
-                    "example": "22222-333333_00000"
-                },
-                "project_type": {
-                    "type": "string",
-                    "example": "personal"
-                },
-                "project_name": {
-                    "type": "string",
-                    "example": "Project Name"
-                },
-                "description": {
-                    "type": "string",
-                    "example": "Project about something"
-                },
-                "web_url": {
-                    "type": "string",
-                    "example": "https://web-link.com"
-                },
-                "git_url": {
-                    "type": "string",
-                    "example": "https://github-link.com"
-                }, 
-                "preload_img": {
-                    "type": "string",
-                    "example": "https://test-photo.com"
-                }
-            }
-        },
         "Send_Message_Request": {
             "type": "object",
             "properties": {
