@@ -10,13 +10,14 @@ import { sendMail } from "./controllers/sendMailControllers.js";
 import { warmUpServerControllers } from "./controllers/warmUpServerControllers.js";
 
 const app = express();
+const jsonParser = express.json();
 
 const swaggerDocument = JSON.parse(fs.readFileSync(path.resolve("./swagger.json"), 'utf-8'));
 
 app.use(cors());
 app.use(express.json());
 
-app.post("/api/send-mail", sendMail);
+app.post("/api/send-mail", jsonParser, sendMail);
 app.get("/api/warm-up", warmUpServerControllers);
 
 app.use("/api-doc", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
