@@ -1,15 +1,28 @@
 import "dotenv/config";
-import sgMail from "@sendgrid/mail";
+import nodemailer from "nodemailer";
 
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: process.env.GMAIL_USER,      
+    pass: process.env.GMAIL_APP_PASS,  
+  },
+});
 
-export const sendMailToContact = (email, subject, text) => {
-    const message = {
-        to: "mashabatyuta.work@gmail.com",  
-        from: "mbatyuta1997@ukr.net",
-        replyTo: email,
-        subject,
-        text,
-    };
-    return sgMail.send(message);
-}
+export const sendMailToContact = async (email, subject, text) => {
+  const message = {
+    from: process.env.GMAIL_USER,       
+    to: "mashabatyuta.work@gmail.com",  
+    replyTo: email,                     
+    subject,
+    text: `From: ${email}\n\n${text}`,
+  };
+
+  try {
+    await transporter.sendMail(message);
+    console.log("✅ Email sent successfully");
+  } catch (error) {
+    console.error("❌ Error sending email:", error);
+    throw error;
+  }
+};
