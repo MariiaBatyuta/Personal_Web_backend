@@ -1,28 +1,21 @@
 import "dotenv/config";
-import nodemailer from "nodemailer";
+import { Resend } from "resend";
 
-const transporter = nodemailer.createTransport({
-  service: "gmail",
-  auth: {
-    user: process.env.GMAIL_USER,      
-    pass: process.env.GMAIL_APP_PASS,  
-  },
-});
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export const sendMailToContact = async (email, subject, text) => {
-  const message = {
-    from: process.env.GMAIL_USER,       
-    to: "mashabatyuta.work@gmail.com",  
-    replyTo: email,                     
-    subject,
-    text: `From: ${email}\n\n${text}`,
-  };
-
   try {
-    await transporter.sendMail(message);
-    console.log("✅ Email sent successfully");
+    await resend.emails.send({
+      from: "Portfolio Contact <onboarding@resend.dev>", 
+      to: "mashabatyuta.work@gmail.com", 
+      subject,
+      reply_to: email, 
+      text: `From: ${email}\n\n${text}`,
+    });
+
+    console.log("✅ Email sent successfully via Resend");
   } catch (error) {
-    console.error("❌ Error sending email:", error);
+    console.error("❌ Error sending email via Resend:", error);
     throw error;
   }
 };
