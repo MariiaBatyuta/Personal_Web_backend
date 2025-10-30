@@ -12,6 +12,15 @@ export const sendMailToContact = async (email, subject, text) => {
       reply_to: email, 
       text: `From: ${email}\n\n${text}`,
     });
+    await fetch("https://n8n-automation-iuts.onrender.com/webhook-test/contact-message", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        from: email,
+        subject,
+        text
+      })
+    });
 
     console.log("✅ Email sent successfully via Resend");
   } catch (error) {
